@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <link rel="stylesheet" href="./styles/main.css">
+    <title>Antagosoft test task</title>
+</head>
+<body>
+    <div id="app">
+        <div class="profile-wrapper">
+            <div class="profile__main-info">
+                <div class="author__photo">
+                    <img src="./assets/profile-photo.png" alt="">
+                </div> 
+                <div class="author-right-side">
+                    <div class="author-info">
+                        <div class="author__name">
+                            <div class="name">Eva Jonson</div>
+                            <div class="position">Sales Manager</div>
+                        </div>
+                        <div class="author__testimonial">
+                            I will find the best offers for you. <br>
+                            My services are absolutely free.
+                        </div>
+                    </div>
+                    <div class="services-wrapper table">
+                        <div class="table__header">
+                            <div class="row">
+                                <div class="col-full"></div>
+                                <div class="col title">Services</div>
+                            </div>
+                        </div>
+                        <div class="services-list table__body">
+                            <div class="services__item service" v-for="(service, index) in services" :key="index">
+                                <div class="row">
+                                    <div class="service__row col-full">
+                                        <div :style="{width: `${getColWidth(service.value)}%`}" class="fillable-bg">
+                                            <div :class="{full: getColWidth(service.value) == 100}" class="filled-bg"></div>
+                                        </div>
+                                        <div class="service__title">{{service.title}}</div>
+                                    </div>
+                                    <div class="service__value col">{{service.value}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="services__total table__footer">
+                            <div class="row">
+                                <div class="total__title total col-full">Total</div>
+                                <div class="total__value total col">
+                                    {{getTotalServicesValue()}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="comments-wrapper">
+                <div class="main-info">
+                    <div class="left-side">
+                        <div class="comments__title">
+                            Latest reviews
+                        </div>
+                        <div class="all-reviews-btn">
+                            All reviews
+                        </div>
+                    </div>
+                    <div class="right-side">
+                        <div class="likes">
+                            <img src="./assets/like.svg" alt="" class="icon">
+                            <div class="val">131</div>
+                        </div>
+                        <div class="comments">
+                            <img src="./assets/comment.svg" alt="" class="icon">
+                            <div class="val">
+                                {{comments.length}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="comments-list">
+                    <div class="comment" v-for="(comment, index) in comments" :key="index">
+                        <div class="comment-author">
+                            <div class="author-name">{{comment.author}}</div>
+                            <div class="review-date">
+                                {{getDate(comment.date)}}
+                            </div>
+                        </div>
+                        <div class="comment-text">
+                            {{comment.message}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="leave-comment__wrapper">
+            <textarea @keydown.enter="addComment" v-model="newComment" placeholder="Leave a comment" name="" id="" cols="30" rows="10"></textarea>
+            <button @click="addComment">Send a message</button>
+        </div>
+    </div>
+    
+    <script src="./assets/script.js"></script>
+    
+</body>
+</html>
